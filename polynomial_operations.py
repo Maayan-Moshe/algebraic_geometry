@@ -29,10 +29,8 @@ class IdealBasis:
                                 self.basis[index], division_ans, index)
             if should_return:
                 return poly_to_divide, division_ans, residual
-        lead_term = poly_to_divide.get_polynomial_lead_term()
-        residual += lead_term
-        poly_to_divide -= lead_term  
-        return poly_to_divide, division_ans, residual 
+        poly_to_divide, residual = add_to_residual(poly_to_divide, residual)
+        return poly_to_divide, division_ans, residual
 
 def divide_one_poly_basis(poly_to_divide, base_poly, division_ans, index):        
     
@@ -41,6 +39,13 @@ def divide_one_poly_basis(poly_to_divide, base_poly, division_ans, index):
         division_ans[index] += division
         return poly_to_divide, True
     return None, False
+    
+def add_to_residual(poly_to_divide, residual):
+    
+    lead_term = poly_to_divide.get_polynomial_lead_term()
+    residual += lead_term
+    poly_to_divide -= lead_term  
+    return poly_to_divide, residual
 
 def devide_two_polynomial_lead_term(numerator, denominator):
     
