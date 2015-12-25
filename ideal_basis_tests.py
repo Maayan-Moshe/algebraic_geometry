@@ -7,6 +7,8 @@ Created on Wed Dec 10 13:02:29 2014
 
 from polynomial_operations import get_single_var_poly, get_const_poly
 from ideal_basis import IdealBasis
+from Monomial import Monomial
+from Polynomial import Polynomial
 import numpy as np
 import unittest
 
@@ -18,15 +20,65 @@ class TestsIdealBasis(unittest.TestCase):
         
     def test_divide_polynomial_by_basis_lin(self):
 
-        base = IdealBasis([self.x, self.y, self.z])
-        poly = get_const_poly(3)*self.x + get_const_poly(-2)*self.y + \
-                    get_const_poly(0)*self.z + get_const_poly(1)
+        base = get_base_for_lin_case()
+        poly = get_const_poly(3)*base.basis[0] + get_const_poly(-2)*base.basis[1] + \
+                    get_const_poly(0)*base.basis[2] + get_const_poly(1)
         division_ans, residual = base.divide_polynomial_by_basis(poly)
-        expected_res = get_const_poly(1)
-        self.assertEqual(residual, expected_res)
-        self.assertEqual(get_const_poly(3), division_ans[0])
-        self.assertEqual(get_const_poly(-2), division_ans[1])
-        self.assertEqual(get_const_poly(0), division_ans[2])
+        exp_res = get_const_poly(1)
+        exp_ans = [get_const_poly(3), get_const_poly(-2), get_const_poly(0)]
+        self.__check_ans_res(division_ans, residual, exp_ans, exp_res)
+        
+    def test_book_example_1(self):
+        
+        poly, base, x, y, one  = get_poly_base_for_ex1()
+        division_ans, residual = base.divide_polynomial_by_basis(poly)
+        exp_ans = [y, -one]
+        exp_res = get_const_poly(2)
+        self.__check_ans_res(division_ans, residual, exp_ans, exp_res)
+        
+    def test_book_example_2(self):
+        
+        poly, base, x, y, one  = get_poly_base_for_ex2()
+        division_ans, residual = base.divide_polynomial_by_basis(poly)
+        exp_ans = [x + y, one]
+        exp_res = x + y + one
+        self.__check_ans_res(division_ans, residual, exp_ans, exp_res)
+    
+    def __check_ans_res(self, ans, res, exp_ans, exp_res):
+        
+        for index in xrange(len(ans)):
+            self.assertEqual(exp_ans[index], ans[index])
+        self.assertEqual(res, exp_res)
+        
+def get_base_for_lin_case():
+    
+    Monomial.num_of_variables = 3
+    x = get_single_var_poly(0)
+    y = get_single_var_poly(1)
+    z = get_single_var_poly(2)
+    base = IdealBasis([x, y, z])
+    return base
+
+def get_poly_base_for_ex1():
+    
+    Monomial.num_of_variables = 2
+    x = get_single_var_poly(0)
+    y = get_single_var_poly(1)
+    one = get_const_poly(1)
+    base = IdealBasis([x*y + one, y + one])
+    poly = x*y*y + one 
+    return poly, base, x, y, one  
+    
+def get_poly_base_for_ex2():
+    
+    Monomial.num_of_variables = 2
+    x = get_single_var_poly(0)
+    y = get_single_var_poly(1)
+    y_2 = y*y
+    one = get_const_poly(1)
+    base = IdealBasis([x*y - one, y_2 - one])
+    poly = x*x*y + x*y_2 + y_2 
+    return poly, base, x, y, one  
         
 def run_single_test(testname):
     suite = unittest.TestSuite()
