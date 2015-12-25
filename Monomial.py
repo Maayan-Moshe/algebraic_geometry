@@ -63,3 +63,9 @@ class Monomial:
     def __lt__(A, B):
         
         return Monomial.monom_comparator(A, B) == -1
+        
+    def equal_val(A, B):
+        
+        if Monomial.monom_comparator(A, B) == 0 and A.coeff == B.coeff:
+            return True
+        return False

@@ -1,56 +1,24 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Dec 20 13:31:20 2015
+Created on Fri Dec 25 11:58:40 2015
 
 @author: mmoshe
 """
-
+from Monomial import Monomial
 from Polynomial import Polynomial
+import numpy as np
 
-class IdealBasis:
+def get_single_var_poly(var_num):
     
-    def __init__(self, basis):
-        
-        self.basis = basis
-
-    def divide_polynomial_by_basis(self, poly_to_divide):
-        
-        division_ans = [Polynomial()]*len(self.basis)
-        residual = Polynomial()
-        while not poly_to_divide.is_empty():
-            poly_to_divide, division_ans, residual = \
-                self.__divide_lead_term_by_basis(poly_to_divide, division_ans, residual)
-        return division_ans, residual
-
-    def __divide_lead_term_by_basis(self, poly_to_divide, division_ans, residual):
+    exponent = np.zeros((Monomial.num_of_variables), dtype=np.int)
+    exponent[var_num] = 1
+    mon = Monomial(1, exponent)
+    ans = Polynomial([mon])
+    return ans
     
-        for index in xrange(len(self.basis)):
-            poly_to_divide, should_return = divide_one_poly_basis(poly_to_divide, \
-                                self.basis[index], division_ans, index)
-            if should_return:
-                return poly_to_divide, division_ans, residual
-        poly_to_divide, residual = add_to_residual(poly_to_divide, residual)
-        return poly_to_divide, division_ans, residual
-
-def divide_one_poly_basis(poly_to_divide, base_poly, division_ans, index):        
+def get_const_poly(coeff):
     
-    if poly_to_divide.is_dividable_by_leading_term(base_poly):
-        division, poly_to_divide = devide_two_polynomial_lead_term(poly_to_divide, base_poly)
-        division_ans[index] += division
-        return poly_to_divide, True
-    return None, False
-    
-def add_to_residual(poly_to_divide, residual):
-    
-    lead_term = poly_to_divide.get_polynomial_lead_term()
-    residual += lead_term
-    poly_to_divide -= lead_term  
-    return poly_to_divide, residual
-
-def devide_two_polynomial_lead_term(numerator, denominator):
-    
-    division = numerator.divide_by_leading_term(denominator)
-    substraction = numerator - division * denominator
-    return division, substraction
-    
-    
+    exponent = np.zeros((Monomial.num_of_variables), dtype=np.int)
+    mon = Monomial(coeff, exponent)
+    ans = Polynomial([mon])
+    return ans

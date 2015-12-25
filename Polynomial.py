@@ -66,11 +66,23 @@ class Polynomial:
         
     def __str__(self):
         
-        return str(self.terms)
+        ans = ''
+        for trm in self.terms:
+            ans += str(trm) + '+'
+        return ans[:-1]
         
     def __repr__(self):
         
         return self.__str__()
+        
+    def __eq__(A, B):
+        
+        if len(A.terms) != len(B.terms):
+            return False
+        for index in xrange(len(A.terms)):
+            if not Monomial.equal_val(A.terms[index], B.terms[index]):
+                return False
+        return True
         
 def add_term(A, B, index0, index1, ans):
     
