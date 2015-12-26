@@ -22,7 +22,7 @@ class Polynomial:
     def divide_by_leading_term(self, other):
         
         assert self.is_dividable_by_leading_term(other)
-        mon_ans = self.terms[0]/other.terms[0]
+        mon_ans = self.terms[0].div(other.terms[0])
         return Polynomial([mon_ans])
         
     def is_empty(self):
@@ -79,7 +79,7 @@ class Polynomial:
         
         if len(A.terms) != len(B.terms):
             return False
-        for index in xrange(len(A.terms)):
+        for index in range(len(A.terms)):
             if not Monomial.equal_val(A.terms[index], B.terms[index]):
                 return False
         return True
@@ -101,7 +101,7 @@ def add_term(A, B, index0, index1, ans):
 def remove_zeros_from_mon_list(monomial_list):
     
     z_c = 0
-    for index in xrange(len(monomial_list)):
+    for index in range(len(monomial_list)):
         ind = index - z_c
         if monomial_list[ind].coeff == 0:
             monomial_list.pop(ind)
@@ -110,7 +110,7 @@ def remove_zeros_from_mon_list(monomial_list):
 def remove_duplicates_from_mon_list(monomial_list):
     
     z_c = 0
-    for index in xrange(len(monomial_list) - 1):
+    for index in range(len(monomial_list) - 1):
         ind = index - z_c
         if Monomial.monom_comparator(monomial_list[ind], monomial_list[ind + 1]) == 0:
             monomial_list[ind + 1] += monomial_list[ind]

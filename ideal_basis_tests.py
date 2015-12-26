@@ -8,8 +8,6 @@ Created on Wed Dec 10 13:02:29 2014
 from polynomial_operations import get_single_var_poly, get_const_poly
 from ideal_basis import IdealBasis
 from Monomial import Monomial
-from Polynomial import Polynomial
-import numpy as np
 import unittest
 
 class TestsIdealBasis(unittest.TestCase):
@@ -46,7 +44,7 @@ class TestsIdealBasis(unittest.TestCase):
     
     def __check_ans_res(self, ans, res, exp_ans, exp_res):
         
-        for index in xrange(len(ans)):
+        for index in range(len(ans)):
             self.assertEqual(exp_ans[index], ans[index])
         self.assertEqual(res, exp_res)
         

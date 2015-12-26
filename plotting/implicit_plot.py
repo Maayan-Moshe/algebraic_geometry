@@ -10,9 +10,9 @@ from numpy import arange
 from numpy import meshgrid
 
 delta = 0.025
-xrange = arange(-5.0, 5.0, delta)
-yrange = arange(-5.0, 5.0, delta)
-X, Y = meshgrid(xrange,yrange)
+x_range = arange(-5.0, 5.0, delta)
+y_range = arange(-5.0, 5.0, delta)
+X, Y = meshgrid(x_range,y_range)
 
 # F is one side of the equation, G is the other
 F = Y**2

@@ -24,7 +24,7 @@ class IdealBasis:
 
     def __divide_lead_term_by_basis(self, poly_to_divide, division_ans, residual):
     
-        for index in xrange(len(self.basis)):
+        for index in range(len(self.basis)):
             poly_to_divide, should_return = divide_one_poly_basis(poly_to_divide, \
                                 self.basis[index], division_ans, index)
             if should_return:

@@ -28,7 +28,7 @@ class Monomial:
         ans_exp = self.exponent + other_mon.exponent
         return Monomial(ans_coeff, ans_exp)
         
-    def __div__(self, other_mon):
+    def div(self, other_mon):
         
         assert self.is_dividable(other_mon)
         ans_coeff = self.coeff / other_mon.coeff
