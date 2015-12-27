@@ -12,11 +12,12 @@ class Monomial:
     
     num_of_variables = 3
     monom_comparator = monomial_lex
+    field_type = float
     
     def __init__(self, coeff = 0, exponent = np.zeros((num_of_variables,), dtype=np.int)):
         
-        self.coeff = coeff
-        self.exponent = exponent
+        self.coeff = self.field_type(coeff)
+        self.exponent = np.array(exponent, dtype = np.int)
         
     def is_dividable(self, other):
         
