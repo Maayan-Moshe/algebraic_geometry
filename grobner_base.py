@@ -11,17 +11,17 @@ from polynomial_operations import get_S_polynomial
 def get_Grobner_base(ibasis):
     
     pre_g_basis = ibasis
-    post_g_basis = _enrich_Groebner_basis(ibasis)
+    post_g_basis = _enrich_Groebner_basis(ibasis, start_index = 0)
     while len(post_g_basis.basis) > len(pre_g_basis.basis):
+        start_index = len(pre_g_basis.basis)
         pre_g_basis = post_g_basis
-        post_g_basis = _enrich_Groebner_basis(pre_g_basis)
+        post_g_basis = _enrich_Groebner_basis(pre_g_basis, start_index)
     return post_g_basis
 
-def _enrich_Groebner_basis(ibasis):
+def _enrich_Groebner_basis(ibasis, start_index):
     
     g_basis = IdealBasis(list(ibasis.basis))
-    orig_len = len(g_basis.basis)
-    for index0 in range(orig_len):
+    for index0 in range(start_index, len(g_basis.basis)):
         for index1 in range(index0):
             _enrich_Groebner_basis_S_residual(g_basis, index0, index1)
     return g_basis
