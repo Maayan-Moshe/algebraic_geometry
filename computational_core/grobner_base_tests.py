@@ -90,7 +90,7 @@ def run_all_tests():
     unittest.TextTestRunner(verbosity=2).run(TheTestSuite())
 
 if __name__ == '__main__':
-#    run_all_tests()
-    run_single_test('test_reduce_minimal_grobner_base')
+    run_all_tests()
+#    run_single_test('test_reduce_minimal_grobner_base')
     
     
