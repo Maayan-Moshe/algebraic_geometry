@@ -7,7 +7,7 @@ Created on Wed Dec 10 13:02:29 2014
 
 from polynomial_operations import get_single_var_poly, get_const_poly
 from ideal_basis import IdealBasis
-from Monomial import Monomial
+from Monomial import Monomial as Mon
 import unittest
 
 class TestsIdealBasis(unittest.TestCase):
@@ -41,6 +41,15 @@ class TestsIdealBasis(unittest.TestCase):
         exp_ans = [x + y, one]
         exp_res = x + y + one
         self.__check_ans_res(division_ans, residual, exp_ans, exp_res)
+        
+    def test_sort_by_lead_term(self):
+        
+        x, y, z = get_xyz_polys()
+        base = IdealBasis([z, y, x])
+        base.sort_by_lead_term()
+        self.assertEqual(base.basis[0], x)
+        self.assertEqual(base.basis[1], y)
+        self.assertEqual(base.basis[2], z)
     
     def __check_ans_res(self, ans, res, exp_ans, exp_res):
         
@@ -50,16 +59,21 @@ class TestsIdealBasis(unittest.TestCase):
         
 def get_base_for_lin_case():
     
-    Monomial.num_of_variables = 3
+    x, y, z = get_xyz_polys()
+    base = IdealBasis([x, y, z])
+    return base
+    
+def get_xyz_polys():
+    
+    Mon.num_of_variables = 3
     x = get_single_var_poly(0)
     y = get_single_var_poly(1)
     z = get_single_var_poly(2)
-    base = IdealBasis([x, y, z])
-    return base
+    return x, y, z
 
 def get_poly_base_for_ex1():
     
-    Monomial.num_of_variables = 2
+    Mon.num_of_variables = 2
     x = get_single_var_poly(0)
     y = get_single_var_poly(1)
     one = get_const_poly(1)
@@ -69,7 +83,7 @@ def get_poly_base_for_ex1():
     
 def get_poly_base_for_ex2():
     
-    Monomial.num_of_variables = 2
+    Mon.num_of_variables = 2
     x = get_single_var_poly(0)
     y = get_single_var_poly(1)
     y_2 = y*y

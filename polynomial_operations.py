@@ -10,12 +10,10 @@ import numpy as np
 
 def get_S_polynomial(poly0, poly1):
     
-    mono0 = poly0.terms[0]
-    mono1 = poly1.terms[0]
-    gamma_ex = np.maximum(mono0.exponent, mono1.exponent)
-    mono_gamma = Monomial(1, gamma_ex)
-    a0 = Polynomial([mono_gamma.div(mono0)])
-    a1 = Polynomial([mono_gamma.div(mono1)])
+    gamma_ex = np.maximum(poly0.get_multidegree(), poly1.get_multidegree())
+    poly_gamma = Polynomial([Monomial(1, gamma_ex)])
+    a0 = poly_gamma.divide_by_leading_term(poly0)
+    a1 = poly_gamma.divide_by_leading_term(poly1)
     S_poly = (a0*poly0) - (a1*poly1)
     return S_poly
 

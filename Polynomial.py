@@ -33,6 +33,10 @@ class Polynomial:
         
         return Polynomial([self.terms[0]])
         
+    def get_multidegree(self):
+        
+        return self.terms[0].exponent
+        
     def __mul__(self, other):
         
         ans_terms = list()
@@ -83,6 +87,14 @@ class Polynomial:
             if not Monomial.equal_val(A.terms[index], B.terms[index]):
                 return False
         return True
+        
+    def __gt__(A, B):
+        
+        return A.terms[0] > B.terms[0]
+        
+    def __lt__(A, B):
+        
+        return A.terms[0] < B.terms[0]
         
 def add_term(A, B, index0, index1, ans):
     
