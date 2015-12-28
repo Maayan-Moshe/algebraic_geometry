@@ -34,10 +34,7 @@ class TestsGrobnerBase(unittest.TestCase):
         
         base = get_base_for_Ex0()
         g_base = get_Grobner_base_reduced(base)
-        exp_p0 = Polynomial([Mon(1, (2,0))])
-        exp_p1 = Polynomial([Mon(1, (1,1))])
-        exp_p2 = Polynomial([Mon(1, (0,2)), Mon(-0.5, (1,0))])
-        expected_base = IdealBasis([exp_p0, exp_p1, exp_p2])
+        expected_base = get_expected_reduced_base()
         self.__check_bases_are_equal(g_base, expected_base)
         
     def test_reduce_minimal_grobner_base(self):
@@ -48,10 +45,7 @@ class TestsGrobnerBase(unittest.TestCase):
         orig_p2 = Polynomial([Mon(2, (0,2)), Mon(-1, (1,0))])
         orig_base = IdealBasis([orig_p0, orig_p1, orig_p2])
         g_base = get_Grobner_base_reduced(orig_base)
-        exp_p0 = Polynomial([Mon(1, (2,0)), Mon(0.875, (0,2)), Mon(0.875, (1,0))])
-        exp_p1 = Polynomial([Mon(1, (1,1))])
-        exp_p2 = Polynomial([Mon(1, (0,2)), Mon(-0.5, (1,0))])
-        expected_base = IdealBasis([exp_p0, exp_p1, exp_p2])
+        expected_base = get_expected_reduced_base()
         self.__check_bases_are_equal(g_base, expected_base)
         
     def __check_bases_are_equal(self, base0, base1):
@@ -75,6 +69,14 @@ def get_expected_base_Ex0():
     exp_p3 = Polynomial([Mon(2, (1,1))])
     exp_p4 = Polynomial([Mon(2, (0,2)), Mon(-1, (1,0))])
     return [exp_p2, exp_p3, exp_p4]
+    
+def get_expected_reduced_base():
+    
+    exp_p0 = Polynomial([Mon(1, (2,0))])
+    exp_p1 = Polynomial([Mon(1, (1,1))])
+    exp_p2 = Polynomial([Mon(1, (0,2)), Mon(-0.5, (1,0))])
+    expected_base = IdealBasis([exp_p0, exp_p1, exp_p2])
+    return expected_base
         
 def run_single_test(testname):
     suite = unittest.TestSuite()
@@ -88,7 +90,7 @@ def run_all_tests():
     unittest.TextTestRunner(verbosity=2).run(TheTestSuite())
 
 if __name__ == '__main__':
-    run_all_tests()
-#    run_single_test('test_get_Grobner_base_reduced_ex0')
+#    run_all_tests()
+    run_single_test('test_reduce_minimal_grobner_base')
     
     

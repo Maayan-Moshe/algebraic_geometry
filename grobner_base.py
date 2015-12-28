@@ -74,7 +74,7 @@ def _correct_col_by_row(ech_mat, base_row):
     ech_mat[base_row, :] /= ech_mat[base_row, left_col]
     non_zero_rows = np.nonzero(ech_mat[:base_row, left_col])[0]
     for upp_row in non_zero_rows:
-        ech_mat[upp_row, :] -= ech_mat[upp_row, left_col]*ech_mat[base_row, left_col]
+        ech_mat[upp_row, :] -= ech_mat[upp_row, left_col]*ech_mat[base_row, :]
     
 def _get_exp_list_dict(min_g_base):
     
