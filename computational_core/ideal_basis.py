@@ -11,8 +11,8 @@ class IdealBasis:
     
     def __init__(self, basis):
         
-        self.basis = basis
-
+        self.basis = [poly for poly in basis if not poly.is_empty()]
+        
     def divide_polynomial_by_basis(self, poly_to_divide):
         
         division_ans = [Polynomial()]*len(self.basis)
