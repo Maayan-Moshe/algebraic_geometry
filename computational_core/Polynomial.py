@@ -11,8 +11,8 @@ class Polynomial:
     
     def __init__(self, terms = list()):
         
-        self.terms = sorted(terms, reverse=True)
-        remove_zeros_from_mon_list(self.terms)
+        self.terms = [trm for trm in terms if trm.coeff != 0]
+        self.terms.sort(reverse=True)
         remove_duplicates_from_mon_list(self.terms)
         
     def is_dividable_by_leading_term(self, other):
@@ -109,15 +109,6 @@ def add_term(A, B, index0, index1, ans):
         ans.append(B[index1])
         index1 += 1
     return index0, index1
-    
-def remove_zeros_from_mon_list(monomial_list):
-    
-    z_c = 0
-    for index in range(len(monomial_list)):
-        ind = index - z_c
-        if monomial_list[ind].coeff == 0:
-            monomial_list.pop(ind)
-            z_c += 1
         
 def remove_duplicates_from_mon_list(monomial_list):
     
