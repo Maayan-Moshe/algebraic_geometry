@@ -3,6 +3,12 @@
 Created on Sun Dec 27 17:01:47 2015
 
 @author: mmoshe
+
+This module has three public function which gets as an input basis for 
+polynomial ideal and returns Grobner basis to the same ideal.
+
+The module implements naive Buchberger's algorithm see - 
+https://en.wikipedia.org/wiki/Buchberger%27s_algorithm.
 """
 
 from ideal_basis import IdealBasis
@@ -12,7 +18,7 @@ from Polynomial import Polynomial
 import numpy as np
 
 def get_Grobner_base_reduced(ibasis):
-    
+
     min_g_base = get_Grobner_base_minimized(ibasis)
     reduced_base = _reduce_minimal_grobner_base(min_g_base)
     return reduced_base

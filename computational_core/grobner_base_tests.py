@@ -3,6 +3,19 @@
 Created on Wed Dec 10 13:02:29 2014
 
 @author: mmoshe
+
+These tests illustrate the use of Grobner base module. All calculation in this 
+module are done relative to the grlex ordering.
+
+First we illustrate production of extended Grobner base with redundancy in the 
+number of polynomials in the Grobenr base.
+
+Second we illustrate the use of minimized Grobenr base with minimal number of 
+polynomials.
+
+Third we illustrate the production of reduced Grobener base both with minimal 
+number of polynomial in the basis and each polynomial has unique leading term 
+not appearing in other polynomials in the basis.
 """
 
 from ideal_basis import IdealBasis
@@ -15,7 +28,7 @@ import unittest
 
 class TestsGrobnerBase(unittest.TestCase):
 
-    def test_get_Grobner_base__extended_ex0(self):
+    def test_get_Grobner_base_extended_ex0(self):
         
         base = get_base_for_Ex0()
         g_base = get_Grobner_base_extended(base)
@@ -55,7 +68,12 @@ class TestsGrobnerBase(unittest.TestCase):
             self.assertEqual(base0.basis[index], base1.basis[index])
         
 def get_base_for_Ex0():
-    
+    '''
+        Produce a basis compose from the following polynomials:
+        x**3 - 2xy, x**2y - 2y**2 + x
+        Notice that we fix the number of varibales and the monomial order 
+        GLOBALLY.
+    '''
     Mon.num_of_variables = 2
     Mon.monom_comparator = monomial_grlex
     poly0 = Polynomial([Mon(1, (3,0)), Mon(-2, (1,1))])
@@ -64,14 +82,18 @@ def get_base_for_Ex0():
     return base
     
 def get_expected_base_Ex0():
-    
+    '''
+        Produce the basis x**2, 2xy, 2y**2 - x
+    '''
     exp_p2 = Polynomial([Mon(1, (2,0))])
     exp_p3 = Polynomial([Mon(2, (1,1))])
     exp_p4 = Polynomial([Mon(2, (0,2)), Mon(-1, (1,0))])
     return [exp_p2, exp_p3, exp_p4]
     
 def get_expected_reduced_base():
-    
+    '''
+        Produce the basis x**2, xy, y**2 - x/2
+    '''
     exp_p0 = Polynomial([Mon(1, (2,0))])
     exp_p1 = Polynomial([Mon(1, (1,1))])
     exp_p2 = Polynomial([Mon(1, (0,2)), Mon(-0.5, (1,0))])
