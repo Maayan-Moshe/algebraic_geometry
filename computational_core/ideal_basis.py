@@ -3,6 +3,9 @@
 Created on Sun Dec 20 13:31:20 2015
 
 @author: mmoshe
+
+This module realize ideal basis as a list of polynomials with the devision 
+algorithm as basic operation.
 """
 
 from Polynomial import Polynomial

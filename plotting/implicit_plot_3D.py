@@ -48,3 +48,7 @@ def plot_implicit(fn, bbox=(-2.5,2.5)):
     ax.set_ylim3d(ymin,ymax)
 
     plt.show()
+    
+if __name__ == '__main__':
+    
+    plot_implicit(surface_implicit)
